@@ -1,18 +1,31 @@
-- config: base-model
-  operations:
+- config: data-support
+  resources:
+    prepared-data:
+      - operation: prepare-data
+
+- operations:
     prepare-data:
       main: prepare_data
-    train:
-      main: '{{ train_main }}'
-      requires:
-        - operation: prepare-data
+    pipeline:
+      steps:
+        - run: prepare-data
+          isolate-runs: no
+          needed: yes
+        - run: random-forest:train
+          isolate-runs: no
+        - run: decision-tree:train
+          isolate-runs: no
 
 - model: random-forest
-  extends: base-model
-  params:
-    train_main: random_forest
+  extends: data-support
+  operations:
+    train:
+      main: random_forest
+      requires: prepared-data
 
 - model: decision-tree
-  extends: base-model
-  params:
-    train_main: decision_tree
+  extends: data-support
+  operations:
+    train:
+      main: decision_tree
+      requires: prepared-data
