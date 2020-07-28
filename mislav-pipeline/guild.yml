@@ -8,13 +8,9 @@
       main: prepare_data
     pipeline:
       steps:
-        - run: prepare-data
-          isolate-runs: no
-          needed: yes
-        - run: random-forest:train
-          isolate-runs: no
-        - run: decision-tree:train
-          isolate-runs: no
+        - prepare-data
+        - random-forest:train
+        - decision-tree:train
 
 - model: random-forest
   extends: data-support
