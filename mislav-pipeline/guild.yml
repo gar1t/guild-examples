@@ -1,0 +1,18 @@
+- config: base-model
+  operations:
+    prepare-data:
+      main: prepare_data
+    train:
+      main: '{{ train_main }}'
+      requires:
+        - operation: prepare-data
+
+- model: random-forest
+  extends: base-model
+  params:
+    train_main: random_forest
+
+- model: decision-tree
+  extends: base-model
+  params:
+    train_main: decision_tree
