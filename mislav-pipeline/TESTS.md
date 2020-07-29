@@ -51,7 +51,10 @@ Train a random forest model on the 'cats' data set.
     acc: 0.9
     <exit 0>
 
-Run attributes show `data_type` as 'cats':
+Show runs info. The `type` flag shows up as 'cats' because the model
+operation saved data metadata as flags. The `type` flag is not defined
+by the model operation. This is a hack of the flags so that the
+upstream prepare data value shows up in Compare, View, etc.
 
     >>> run("guild runs info")
     id: ...
@@ -66,7 +69,8 @@ Run attributes show `data_type` as 'cats':
       acc: 0.900000 (step 0)
     <exit 0>
 
-Compare runs.
+Compare runs. Note that `type` is a common column across both prepare
+data and model ops.
 
     >>> run("guild compare -t")
     run  operation            started  time  status     label              prepared-data  type  step  acc
@@ -87,7 +91,9 @@ Train a decision tree model on the 'dogs' data set.
     acc: 0.8
     <exit 0>
 
-Run attributes show `data_type` as 'cats':
+In this case, the `type` flag is 'dogs'. Note again that `type` is not
+defined as flag for this model operation. It shows up here because the
+model op saved the data metadata as flag values.
 
     >>> run("guild runs info")
     id: ...
