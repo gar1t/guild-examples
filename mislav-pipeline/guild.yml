@@ -17,11 +17,22 @@
         - random-forest:train
         - decision-tree:train
 
+    pipeline-2:
+      flags:
+        data-type:
+          required: yes
+        random-forest-depth:
+          required: yes
+      steps:
+        - prepare-data type=${data-type}
+        - random-forest:train depth=${random-forest-depth}
+
 - model: random-forest
   extends: model-base
   operations:
     train:
       main: random_forest
+      flags-import: [depth]
       requires: prepared-data
 
 - model: decision-tree
