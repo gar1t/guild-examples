@@ -20,12 +20,16 @@
     pipeline-2:
       flags:
         data-type:
-          required: yes
+          default: [cats,dogs]
         random-forest-depth:
-          required: yes
+          default: [1,2,3,4,5]
       steps:
-        - prepare-data type=${data-type}
-        - random-forest:train depth=${random-forest-depth}
+        - run: prepare-data type=${data-type}
+          isolate-runs: no
+          needed: yes
+        - run: random-forest:train depth=${random-forest-depth}
+          isolate-runs: no
+          needed: yes
 
 - model: random-forest
   extends: model-base
