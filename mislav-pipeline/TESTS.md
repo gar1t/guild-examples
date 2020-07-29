@@ -47,7 +47,7 @@ Train a random forest model on the 'cats' data set.
     ...     "prepared-data=`guild select -o prepare-data -l cats` -y")
     Resolving prepared-data dependency
     Using run ... for prepared-data resource
-    Training random forest model on cats (2 examples)
+    Training random forest model on cats (2 examples) with depth 1
     acc: 0.9
     <exit 0>
 
@@ -63,6 +63,7 @@ upstream prepare data value shows up in Compare, View, etc.
     status: completed
     ...
     flags:
+      depth: 1
       prepared-data: ...
       type: cats
     scalars:
@@ -73,10 +74,10 @@ Compare runs. Note that `type` is a common column across both prepare
 data and model ops.
 
     >>> run("guild compare -t")
-    run  operation            started  time  status     label              prepared-data  type  step  acc
-    ...  random-forest:train  ...            completed  prepared-data=...  ...            cats  0     0.899999
-    ...  prepare-data         ...            completed  type=dogs                         dogs
-    ...  prepare-data         ...            completed  type=cats                         cats
+    run  operation            started  time  status     label                      depth  prepared-data  type  step  acc
+    ...  random-forest:train  ...            completed  depth=1 prepared-data=...  1      ...            cats  0     0.899999
+    ...  prepare-data         ...            completed  type=dogs                                        dogs
+    ...  prepare-data         ...            completed  type=cats                                        cats
     <exit 0>
 
 ## Decision Tree
@@ -111,9 +112,9 @@ model op saved the data metadata as flag values.
 Compare runs.
 
     >>> run("guild compare -t")
-    run  operation            started  time  status     label              prepared-data  type  step  acc
-    ...  decision-tree:train  ...            completed  prepared-data=...  ...            dogs  0     0.800000
-    ...  random-forest:train  ...            completed  prepared-data=...  ...            cats  0     0.899999
-    ...  prepare-data         ...            completed  type=dogs                         dogs
-    ...  prepare-data         ...            completed  type=cats                         cats
+    run  operation            started  time  status     label                      prepared-data  type  step  acc       depth
+    ...  decision-tree:train  ...            completed  prepared-data=...          ...            dogs  0     0.800000
+    ...  random-forest:train  ...            completed  depth=1 prepared-data=...  ...            cats  0     0.899999  1
+    ...  prepare-data         ...            completed  type=dogs                                 dogs
+    ...  prepare-data         ...            completed  type=cats                                 cats
     <exit 0>
