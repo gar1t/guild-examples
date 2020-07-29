@@ -1,4 +1,10 @@
-- config: data-support
+- config: model-base
+  operation-defaults:
+    compare:
+      - .data_type as type
+      - =prepared-data
+      - acc
+      - last acc step as step
   resources:
     prepared-data:
       - operation: prepare-data
@@ -6,6 +12,11 @@
 - operations:
     prepare-data:
       main: prepare_data
+      flags-import: all
+      flags:
+        type:
+          choices: [cats, dogs]
+
     pipeline:
       steps:
         - prepare-data
@@ -13,14 +24,14 @@
         - decision-tree:train
 
 - model: random-forest
-  extends: data-support
+  extends: model-base
   operations:
     train:
       main: random_forest
       requires: prepared-data
 
 - model: decision-tree
-  extends: data-support
+  extends: model-base
   operations:
     train:
       main: decision_tree
