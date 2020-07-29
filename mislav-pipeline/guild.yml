@@ -1,10 +1,4 @@
 - config: model-base
-  operation-defaults:
-    compare:
-      - .data_type as type
-      - =prepared-data
-      - acc
-      - last acc step as step
   resources:
     prepared-data:
       - operation: prepare-data

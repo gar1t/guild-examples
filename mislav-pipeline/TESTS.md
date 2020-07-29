@@ -59,9 +59,9 @@ Run attributes show `data_type` as 'cats':
     from: .../mislav-pipeline/guild.yml
     status: completed
     ...
-    data_type: cats
     flags:
       prepared-data: ...
+      type: cats
     scalars:
       acc: 0.900000 (step 0)
     <exit 0>
@@ -69,10 +69,10 @@ Run attributes show `data_type` as 'cats':
 Compare runs.
 
     >>> run("guild compare -t")
-    run  operation            started  time  status     label              type  prepared-data  acc       step
-    ...  random-forest:train  ...            completed  prepared-data=...  cats  ...            0.899999  0
-    ...  prepare-data         ...            completed  type=dogs          dogs
-    ...  prepare-data         ...            completed  type=cats          cats
+    run  operation            started  time  status     label              prepared-data  type  step  acc
+    ...  random-forest:train  ...            completed  prepared-data=...  ...            cats  0     0.899999
+    ...  prepare-data         ...            completed  type=dogs                         dogs
+    ...  prepare-data         ...            completed  type=cats                         cats
     <exit 0>
 
 ## Decision Tree
@@ -95,9 +95,9 @@ Run attributes show `data_type` as 'cats':
     from: .../mislav-pipeline/guild.yml
     status: completed
     ...
-    data_type: dogs
     flags:
       prepared-data: ...
+      type: dogs
     scalars:
       acc: 0.800000 (step 0)
     <exit 0>
@@ -105,9 +105,9 @@ Run attributes show `data_type` as 'cats':
 Compare runs.
 
     >>> run("guild compare -t")
-    run  operation            started  time  status     label              type  prepared-data  acc       step
-    ...  decision-tree:train  ...            completed  prepared-data=...  dogs  ...            0.800000  0
-    ...  random-forest:train  ...            completed  prepared-data=...  cats  ...            0.899999  0
-    ...  prepare-data         ...            completed  type=dogs          dogs
-    ...  prepare-data         ...            completed  type=cats          cats
+    run  operation            started  time  status     label              prepared-data  type  step  acc
+    ...  decision-tree:train  ...            completed  prepared-data=...  ...            dogs  0     0.800000
+    ...  random-forest:train  ...            completed  prepared-data=...  ...            cats  0     0.899999
+    ...  prepare-data         ...            completed  type=dogs                         dogs
+    ...  prepare-data         ...            completed  type=cats                         cats
     <exit 0>
